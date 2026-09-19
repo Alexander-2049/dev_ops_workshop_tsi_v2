@@ -1,0 +1,21 @@
+(() => {
+  'use strict';
+  const title = 'Hamlet, Act III, Scene I — To be, or not to be';
+  const description = "William Shakespeare's Hamlet, Act III, Scene I [To be, or not to be]";
+  const anthologyKey = 'existential-crisis-fun-zone:hamlet-act-3-scene-1';
+  const status = document.querySelector('.status');
+  const saveButton = document.querySelector('[data-action="save"]');
+  const canonicalUrl = () => `${window.location.origin}${window.location.pathname}`;
+  const announce = message => { status.textContent = message; };
+  const shareUrls = () => { const url = encodeURIComponent(canonicalUrl()); const encodedTitle = encodeURIComponent(title); return {facebook:`https://www.facebook.com/sharer/sharer.php?u=${url}`,twitter:`https://twitter.com/intent/tweet?url=${url}&text=${encodedTitle}`,tumblr:`https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}&title=${encodedTitle}&caption=${encodeURIComponent(description)}`}; };
+  const openShare = event => { event.preventDefault(); const popup = window.open(shareUrls()[event.currentTarget.dataset.share], '_blank', 'noopener,noreferrer'); if (popup) popup.opener = null; else announce('Your browser blocked the sharing window. Please allow pop-ups and try again.'); };
+  document.querySelectorAll('[data-share]').forEach(link => link.addEventListener('click', openShare));
+  document.querySelector('[data-action="print"]').addEventListener('click', () => window.print());
+  const copyText = async text => { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return; } const textarea = document.createElement('textarea'); textarea.value = text; textarea.setAttribute('readonly', ''); textarea.style.position = 'fixed'; textarea.style.opacity = '0'; document.body.append(textarea); textarea.select(); const copied = document.execCommand('copy'); textarea.remove(); if (!copied) throw new Error('Copy command was unavailable'); };
+  document.querySelector('[data-action="embed"]').addEventListener('click', async () => { const embed = `<iframe src="${canonicalUrl()}" title="${title}" width="100%" height="760" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`; try { await copyText(embed); announce('Embed code copied to your clipboard.'); } catch { announce('Could not copy the embed code. Please try again in a browser that permits clipboard access.'); } });
+  const storage = { get() { try { return localStorage.getItem(anthologyKey) === 'saved'; } catch { return null; } }, set(saved) { try { localStorage.setItem(anthologyKey, saved ? 'saved' : ''); return true; } catch { return false; } } };
+  const updateSaveButton = saved => { saveButton.setAttribute('aria-pressed', String(saved)); saveButton.textContent = saved ? 'Remove from this browser’s anthology' : 'Add this poem to an anthology'; };
+  const saved = storage.get(); if (saved === null) announce('Local saving is unavailable in this browser.'); else updateSaveButton(saved);
+  saveButton.addEventListener('click', () => { const next = saveButton.getAttribute('aria-pressed') !== 'true'; if (!storage.set(next)) { announce('Local saving is unavailable in this browser.'); return; } updateSaveButton(next); announce(next ? 'Saved to this browser’s anthology.' : 'Removed from this browser’s anthology.'); });
+  const toggle = document.querySelector('.mode-toggle'); toggle.addEventListener('click', () => { const active = document.body.classList.toggle('not-to-be'); toggle.setAttribute('aria-pressed', String(active)); announce(active ? 'Not to be arcade mood selected.' : 'To be arcade mood selected.'); });
+})();

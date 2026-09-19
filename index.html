@@ -9,6 +9,14 @@
   </head>
   <body>
     <a class="skip-link" href="#poem">Skip to the soliloquy</a>
+    <div class="arcade-scene" aria-hidden="true">
+      <span class="arcade-orbit arcade-orbit--one">✦</span>
+      <span class="arcade-orbit arcade-orbit--two">✹</span>
+      <span class="arcade-orbit arcade-orbit--three">◆</span>
+      <span class="arcade-sticker arcade-sticker--one">+1 JOY</span>
+      <span class="arcade-sticker arcade-sticker--two">WOW!</span>
+    </div>
+    <div class="arcade-particles" aria-hidden="true"></div>
     <div class="page-shell">
       <header class="hero" aria-labelledby="page-title">
         <div class="hero__sparkles" aria-hidden="true"><span>✦</span><span>✹</span><span>✦</span></div>
@@ -17,7 +25,8 @@
         <p class="hero__prompt">PRESS START. <span aria-hidden="true">✦</span></p>
         <h1 id="page-title">Hamlet, Act III, Scene I</h1>
         <p class="byline">William Shakespeare <span aria-hidden="true">•</span> <span>1564–1616</span></p>
-        <button class="mode-toggle" type="button" aria-pressed="false"><span aria-hidden="true">●</span> Switch the arcade mood</button>
+        <p class="arcade-indicator" aria-hidden="true">ARCADE MODE ACTIVATED!</p>
+        <button class="mode-toggle" type="button" aria-pressed="false"><span aria-hidden="true">●</span><span class="mode-toggle__label">Switch to arcade mode</span></button>
       </header>
       <main>
         <article class="reading-card" id="poem" aria-labelledby="poem-title">

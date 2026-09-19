@@ -17,5 +17,68 @@
   const updateSaveButton = saved => { saveButton.setAttribute('aria-pressed', String(saved)); saveButton.textContent = saved ? 'Remove from this browser’s anthology' : 'Add this poem to an anthology'; };
   const saved = storage.get(); if (saved === null) announce('Local saving is unavailable in this browser.'); else updateSaveButton(saved);
   saveButton.addEventListener('click', () => { const next = saveButton.getAttribute('aria-pressed') !== 'true'; if (!storage.set(next)) { announce('Local saving is unavailable in this browser.'); return; } updateSaveButton(next); announce(next ? 'Saved to this browser’s anthology.' : 'Removed from this browser’s anthology.'); });
-  const toggle = document.querySelector('.mode-toggle'); toggle.addEventListener('click', () => { const active = document.body.classList.toggle('not-to-be'); toggle.setAttribute('aria-pressed', String(active)); announce(active ? 'Not to be arcade mood selected.' : 'To be arcade mood selected.'); });
+  const toggle = document.querySelector('.mode-toggle');
+  const toggleLabel = toggle.querySelector('.mode-toggle__label');
+  const particleLayer = document.querySelector('.arcade-particles');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activationTimer = null;
+
+  const random = (minimum, maximum) => minimum + Math.random() * (maximum - minimum);
+  const palette = ['#dfff58', '#ff66b3', '#ff964a', '#fffdf4', '#4545ff'];
+  const shapes = ['star', 'diamond', 'ring', 'pixel'];
+  const clearParticles = () => {
+    if (activationTimer) window.clearTimeout(activationTimer);
+    activationTimer = null;
+    particleLayer.replaceChildren();
+  };
+  const createParticle = (kind, index, total) => {
+    const particle = document.createElement('span');
+    const shape = shapes[index % shapes.length];
+    particle.className = `arcade-particle arcade-particle--${kind} arcade-particle--${shape}`;
+    particle.style.setProperty('--particle-color', palette[index % palette.length]);
+    particle.style.setProperty('--size', `${Math.round(random(8, 22))}px`);
+    if (kind === 'ambient') {
+      particle.style.setProperty('--x', `${Math.round(random(3, 94))}%`);
+      particle.style.setProperty('--y', `${Math.round(random(5, 91))}%`);
+      particle.style.setProperty('--drift-x', `${Math.round(random(-34, 34))}px`);
+      particle.style.setProperty('--drift-y', `${Math.round(random(-42, 42))}px`);
+      particle.style.setProperty('--duration', `${random(4.5, 9).toFixed(2)}s`);
+      particle.style.setProperty('--delay', `${random(-8, 0).toFixed(2)}s`);
+    } else {
+      const angle = (Math.PI * 2 * index) / total + random(-0.18, 0.18);
+      const distance = random(70, 210);
+      particle.style.setProperty('--x', '50%');
+      particle.style.setProperty('--y', '18%');
+      particle.style.setProperty('--burst-x', `${Math.round(Math.cos(angle) * distance)}px`);
+      particle.style.setProperty('--burst-y', `${Math.round(Math.sin(angle) * distance)}px`);
+      particle.style.setProperty('--duration', `${random(.7, 1.3).toFixed(2)}s`);
+      particle.addEventListener('animationend', () => particle.remove(), { once: true });
+    }
+    return particle;
+  };
+  const startArcade = () => {
+    document.body.classList.add('arcade-active');
+    toggle.setAttribute('aria-pressed', 'true');
+    toggleLabel.textContent = 'Exit arcade mode';
+    clearParticles();
+    if (!reduceMotion.matches) {
+      const ambientCount = window.matchMedia('(max-width: 600px)').matches ? 12 : 22;
+      const ambient = Array.from({ length: ambientCount }, (_, index) => createParticle('ambient', index, ambientCount));
+      const burst = Array.from({ length: 24 }, (_, index) => createParticle('burst', index, 24));
+      particleLayer.append(...ambient, ...burst);
+      activationTimer = window.setTimeout(() => { activationTimer = null; }, 1400);
+    }
+    announce('Arcade mode activated. Animated decorations are on.');
+  };
+  const stopArcade = () => {
+    document.body.classList.remove('arcade-active');
+    clearParticles();
+    toggle.setAttribute('aria-pressed', 'false');
+    toggleLabel.textContent = 'Switch to arcade mode';
+    announce('Arcade mode off. Animated decorations are stopped.');
+  };
+  toggle.addEventListener('click', () => {
+    if (document.body.classList.contains('arcade-active')) stopArcade();
+    else startArcade();
+  });
 })();

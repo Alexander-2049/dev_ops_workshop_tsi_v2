@@ -54,6 +54,17 @@
           <aside class="reader-card"><p class="mini-label">READER STATUS</p><p class="reader-card__stamp">READY<br>PLAYER<br>ONE</p><p>Tip: let the line breaks do their little dramatic thing.</p><a href="#poem" class="continue-link">Continue to the reading arena <span aria-hidden="true">↓</span></a></aside>
         </section>
 
+        <section class="run-cabinet" data-run-cabinet hidden aria-labelledby="run-title">
+          <div class="run-cabinet__marquee"><span>SHAKESPEARE RUN</span><span>TO BE OR NOT TO BE: THE RUN</span><span>SHAKESPEARE RUN</span></div>
+          <div class="run-cabinet__body">
+            <div class="run-cabinet__header"><div><p class="eyebrow">PLAYER ONE / OPTIONAL SIDE QUEST</p><h2 id="run-title">Shakespeare Run</h2></div><div class="run-lights" aria-hidden="true"><i></i><i></i><i></i></div></div>
+            <div class="run-hud"><p>SCORE <strong data-run-score>0000</strong></p><p>BEST <strong data-run-best>0000</strong></p><p data-run-state>READY</p></div>
+            <div class="run-screen-wrap"><canvas class="run-screen" data-run-canvas width="800" height="260" aria-label="Shakespeare Run game screen"></canvas><div class="run-overlay" data-run-overlay><strong>TO BE OR NOT TO BE: THE RUN</strong><span>Jump the inkwells, books, masks, quills, and airborne folios.</span></div></div>
+            <div class="run-controls"><button type="button" class="run-button run-button--start" data-run-start>START GAME</button><button type="button" class="run-button" data-run-pause disabled>PAUSE</button><button type="button" class="run-button run-button--jump" data-run-jump aria-label="Jump in Shakespeare Run" disabled>JUMP ↑</button></div>
+            <p class="run-help">SPACE starts or jumps; hold longer for a higher leap · ↑ jumps · P pauses</p><div class="run-cabinet__footer" aria-hidden="true"><span>◉ PLAYER ONE</span><span>✦ AVOID THE DRAMA</span><span>● DAY / NIGHT MODE</span></div>
+          </div>
+        </section>
+
         <section class="reading-arena" aria-labelledby="arena-title">
           <div class="arena-rail" aria-hidden="true"><span>BOSS LEVEL: SOLILOQUY</span><i></i><span>KEEP YOUR HEART-ACHES HANDY</span></div>
           <div class="reading-layout">
@@ -85,7 +96,7 @@
         <section class="action-panel" aria-labelledby="actions-title">
           <div class="action-panel__heading"><div><p class="eyebrow">BONUS ROUND / TAKE IT WITH YOU</p><h2 id="actions-title">Pass the thought along</h2></div><p>Six small buttons. Zero pretend achievements.</p></div>
           <div class="action-deck">
-            <section class="action-module action-module--share" aria-labelledby="share-title"><div class="module-title"><span aria-hidden="true">↗</span><div><p class="mini-label">SOCIAL TOKENS</p><h3 id="share-title">Share the cabinet</h3></div></div><p class="module-copy">Opens each service’s share window with this page’s address.</p><div class="action-group" aria-label="Share options"><a class="action-button action-button--facebook" data-share="facebook" href="https://www.facebook.com/sharer/sharer.php?u=./" target="_blank" rel="noopener noreferrer"><span>F</span> Share on Facebook</a><a class="action-button action-button--twitter" data-share="twitter" href="https://twitter.com/intent/tweet?url=./&amp;text=Hamlet%2C%20Act%20III%2C%20Scene%20I" target="_blank" rel="noopener noreferrer"><span>↗</span> Share on Twitter / X</a><a class="action-button action-button--tumblr" data-share="tumblr" href="https://www.tumblr.com/widgets/share/tool?canonicalUrl=./&amp;title=Hamlet%2C%20Act%20III%2C%20Scene%20I" target="_blank" rel="noopener noreferrer"><span>T</span> Share on Tumblr</a></div></section>
+            <section class="action-module action-module--share" aria-labelledby="share-title"><div class="module-title"><span aria-hidden="true">↗</span><div><p class="mini-label">SOCIAL TOKENS</p><h3 id="share-title">Share the cabinet</h3></div></div><p class="module-copy">Opens each service’s share window with this page’s address.</p><div class="action-group" aria-label="Share options"><a class="action-button action-button--facebook" data-share="facebook" href="https://www.facebook.com/sharer/sharer.php?u=./" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="./assets/icons/facebook.svg" alt="" width="22" height="22"> Share on Facebook</a><a class="action-button action-button--twitter" data-share="twitter" href="https://twitter.com/intent/tweet?url=./&amp;text=Hamlet%2C%20Act%20III%2C%20Scene%20I" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="./assets/icons/twitter.svg" alt="" width="22" height="22"> Share on Twitter / X</a><a class="action-button action-button--tumblr" data-share="tumblr" href="https://www.tumblr.com/widgets/share/tool?canonicalUrl=./&amp;title=Hamlet%2C%20Act%20III%2C%20Scene%20I" target="_blank" rel="noopener noreferrer"><img class="social-icon" src="./assets/icons/tumblr.svg" alt="" width="22" height="22"> Share on Tumblr</a></div></section>
             <section class="action-module action-module--utility" aria-labelledby="utility-title"><div class="module-title"><span aria-hidden="true">✦</span><div><p class="mini-label">UTILITY CABINET</p><h3 id="utility-title">Keep the level handy</h3></div></div><p class="module-copy">Make a paper copy, borrow a small window, or save this round locally.</p><div class="action-group" aria-label="Reading utilities"><button class="action-button action-button--print" type="button" data-action="print"><span>⌘</span> View print mode</button><button class="action-button action-button--embed" type="button" data-action="embed"><span>&lt;/&gt;</span> Copy embed code</button><button class="action-button action-button--save" type="button" data-action="save" aria-pressed="false"><span>+</span> Add this poem to an anthology</button></div></section>
           </div>
           <div class="action-panel__footer"><p class="storage-note">Your anthology is saved only in this browser on this device.</p><p class="anthology-chip" data-anthology-chip aria-hidden="true">LOCAL SLOT: OPEN</p><p class="status" role="status" aria-live="polite" aria-atomic="true"></p></div>
@@ -93,6 +104,7 @@
       </main>
       <footer class="site-footer"><div class="footer-tokens" aria-hidden="true"><span>✦</span><span>ONE THOUGHT AT A TIME</span><span>✦</span></div><p>Made for a serious question and an extremely cheerful interface.</p><div class="footer-capsules"><span>STATIC SITE</span><span>NO COINS REQUIRED</span><span>READING MODE: ON</span></div></footer>
     </div>
+    <script src="./game.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

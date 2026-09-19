@@ -65,6 +65,7 @@
   };
   const startArcade = () => {
     document.body.classList.add('arcade-active');
+    window.ShakespeareRun?.activate();
     toggle.setAttribute('aria-pressed', 'true');
     toggleLabel.textContent = 'Exit arcade mode';
     clearParticles();
@@ -79,6 +80,7 @@
   };
   const stopArcade = () => {
     document.body.classList.remove('arcade-active');
+    window.ShakespeareRun?.deactivate();
     clearParticles();
     toggle.setAttribute('aria-pressed', 'false');
     toggleLabel.textContent = 'Switch to arcade mode';
